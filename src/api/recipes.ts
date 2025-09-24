@@ -50,6 +50,7 @@ export interface RecipeFilters {
   cuisine?: string;
   diet?: string;
   difficulty?: string;
+  createdBy?: string;
   sortBy?: string;
   sortOrder?: 'asc' | 'desc';
 }

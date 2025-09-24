@@ -343,8 +343,6 @@ const RecipeDetail = ({ user }: RecipeDetailProps) => {
                 </CardContent>
               </Card>
 
-              </Card>
-
               {/* Ingredients and Instructions */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
                 {/* Ingredients */}

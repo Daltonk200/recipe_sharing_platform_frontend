@@ -5,9 +5,8 @@ import { cn } from '../../lib/utils'
 import { Button } from './Button'
 
 interface ImageUploaderProps {
-  value?: string
+  value?: string | null
   onChange: (file: File | null, url?: string) => void
-  onProgress?: (progress: number) => void
   className?: string
   accept?: string
   maxSize?: number // in MB
@@ -18,7 +17,6 @@ interface ImageUploaderProps {
 const ImageUploader: React.FC<ImageUploaderProps> = ({
   value,
   onChange,
-  onProgress,
   className,
   accept = 'image/*',
   maxSize = 5,

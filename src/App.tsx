@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
 import { authAPI, type User } from './api/auth'
 import { ToastProvider } from './components/ui'
 import Home from './pages/Home'
@@ -12,6 +13,7 @@ import UserProfile from './pages/UserProfile'
 import './App.css'
 
 function App() {
+  const location = useLocation()
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -36,6 +38,11 @@ function App() {
     setUser(null)
   }
 
+  const handleSignup = (token: string, userData: User) => {
+    authAPI.setAuth(token, userData);
+    setUser(userData);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -46,40 +53,101 @@ function App() {
 
   return (
     <ToastProvider>
-      <Routes>
-        <Route path="/" element={<Home onLogout={handleLogout} />} />
-        <Route 
-          path="/login" 
-          element={
-            user ? <Navigate to="/" replace /> : <Login onLogin={handleLogin} />
-          } 
-        />
-        <Route 
-          path="/signup" 
-          element={
-            user ? <Navigate to="/" replace /> : <Signup onLogin={handleLogin} />
-          } 
-        />
-        <Route path="/recipe/:id" element={<RecipeDetail user={user} />} />
-        <Route 
-          path="/create-recipe" 
-          element={
-            user ? <CreateRecipe /> : <Navigate to="/login" replace />
-          } 
-        />
-        <Route 
-          path="/edit-recipe/:id" 
-          element={
-            user ? <EditRecipe /> : <Navigate to="/login" replace />
-          } 
-        />
-        <Route 
-          path="/profile" 
-          element={
-            user ? <UserProfile /> : <Navigate to="/login" replace />
-          } 
-        />
-      </Routes>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route 
+            path="/" 
+            element={
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Home onLogout={handleLogout} />
+              </motion.div>
+            } 
+          />
+          <Route 
+            path="/login" 
+            element={
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+              >
+                {user ? <Navigate to="/" replace /> : <Login onLogin={handleLogin} />}
+              </motion.div>
+            } 
+          />
+          <Route 
+            path="/signup" 
+            element={
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+              >
+                {user ? <Navigate to="/" replace /> : <Signup onSignup={handleSignup} />}
+              </motion.div>
+            } 
+          />
+          <Route 
+            path="/recipe/:id" 
+            element={
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+              >
+                <RecipeDetail user={user} />
+              </motion.div>
+            } 
+          />
+          <Route 
+            path="/create-recipe" 
+            element={
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                {user ? <CreateRecipe /> : <Navigate to="/login" replace />}
+              </motion.div>
+            } 
+          />
+          <Route 
+            path="/edit-recipe/:id" 
+            element={
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                {user ? <EditRecipe /> : <Navigate to="/login" replace />}
+              </motion.div>
+            } 
+          />
+          <Route 
+            path="/profile" 
+            element={
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                {user ? <UserProfile /> : <Navigate to="/login" replace />}
+              </motion.div>
+            } 
+          />
+        </Routes>
+      </AnimatePresence>
     </ToastProvider>
   )
 }
