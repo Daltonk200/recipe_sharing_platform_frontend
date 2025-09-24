@@ -10,7 +10,19 @@ import RecipeDetail from './pages/RecipeDetail'
 import CreateRecipe from './pages/CreateRecipe'
 import EditRecipe from './pages/EditRecipe'
 import UserProfile from './pages/UserProfile'
+import { Layout } from './components/layout'
 import './App.css'
+
+const CreateRecipePage = () => {
+  const user = authAPI.getCurrentUser()
+  return (
+    <Layout user={user || undefined}>
+      <div className="w-full px-4 sm:px-6 lg:px-8 py-8">
+        <CreateRecipe />
+      </div>
+    </Layout>
+  )
+}
 
 function App() {
   const location = useLocation()
@@ -116,7 +128,7 @@ function App() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                {user ? <CreateRecipe /> : <Navigate to="/login" replace />}
+                {user ? <CreateRecipePage /> : <Navigate to="/login" replace />}
               </motion.div>
             } 
           />

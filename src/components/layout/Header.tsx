@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Search, Bell, User as UserIcon } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Input, Button } from '../ui'
@@ -54,18 +55,20 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* User Profile */}
             {user ? (
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="flex items-center space-x-3 p-2 rounded-lg hover:bg-neutral-50 cursor-pointer"
-              >
-                <div className="h-8 w-8 rounded-full bg-amber-100 flex items-center justify-center">
-                  <UserIcon className="h-4 w-4 text-amber-600" />
-                </div>
-                <div className="hidden sm:block">
-                  <p className="text-sm font-medium text-neutral-900">{user.username}</p>
-                  <p className="text-xs text-neutral-500">{user.email}</p>
-                </div>
-              </motion.div>
+              <Link to="/profile">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  className="flex items-center space-x-3 p-2 rounded-lg hover:bg-neutral-50 cursor-pointer"
+                >
+                  <div className="h-8 w-8 rounded-full bg-amber-100 flex items-center justify-center">
+                    <UserIcon className="h-4 w-4 text-amber-600" />
+                  </div>
+                  <div className="hidden sm:block">
+                    <p className="text-sm font-medium text-neutral-900">{user.username}</p>
+                    <p className="text-xs text-neutral-500">{user.email}</p>
+                  </div>
+                </motion.div>
+              </Link>
             ) : (
               <div className="flex items-center space-x-2">
                 <Button variant="ghost" size="sm">

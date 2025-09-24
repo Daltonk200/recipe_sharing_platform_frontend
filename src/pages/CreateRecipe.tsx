@@ -163,7 +163,7 @@ const CreateRecipe = () => {
 
 
   return (
-    <div className="max-w-2xl mx-auto py-10">
+    <div className="max-w-2xl mx-auto">
       <Card>
         <CardHeader>
           <CardTitle>Create New Recipe</CardTitle>

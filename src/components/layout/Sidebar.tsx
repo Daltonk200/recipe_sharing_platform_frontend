@@ -5,8 +5,6 @@ import {
   Home, 
   Plus, 
   User, 
-  Heart, 
-  BookOpen, 
   X,
   ChefHat
 } from 'lucide-react'
@@ -32,9 +30,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const navigation = [
     { name: 'Home', href: '/', icon: Home, current: location.pathname === '/' },
     { name: 'Create Recipe', href: '/create-recipe', icon: Plus, current: location.pathname === '/create-recipe' },
-    { name: 'My Recipes', href: '/my-recipes', icon: BookOpen, current: location.pathname === '/my-recipes' },
-    { name: 'Favorites', href: '/favorites', icon: Heart, current: location.pathname === '/favorites' },
-    { name: 'Profile', href: '/profile', icon: User, current: location.pathname === '/profile' },
   ]
 
   const sidebarVariants = {
