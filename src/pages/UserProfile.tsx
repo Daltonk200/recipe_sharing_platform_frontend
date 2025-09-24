@@ -32,9 +32,9 @@ const UserProfile = () => {
       });
       setPublishedRecipes(publishedResponse.recipes);
 
-      // Note: For favorites, we'd need a new API endpoint
-      // For now, we'll show an empty array but keep the UI ready
-      setFavoriteRecipes([]);
+      // Fetch favorite recipes
+      const favoritesResponse = await recipeAPI.getFavorites(1, 50);
+      setFavoriteRecipes(favoritesResponse.recipes);
       
       setError(null);
     } catch (err: any) {

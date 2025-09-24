@@ -119,5 +119,14 @@ export const recipeAPI = {
   toggleFavorite: async (id: string): Promise<{ message: string; isFavorited: boolean }> => {
     const response = await api.post(`/recipes/${id}/favorite`);
     return response.data;
+  },
+
+  getFavorites: async (page?: number, limit?: number): Promise<RecipesResponse> => {
+    const params = new URLSearchParams();
+    if (page) params.append('page', page.toString());
+    if (limit) params.append('limit', limit.toString());
+    
+    const response = await api.get(`/recipes/favorites?${params.toString()}`);
+    return response.data;
   }
 };

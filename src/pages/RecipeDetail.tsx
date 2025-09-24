@@ -325,7 +325,7 @@ const RecipeDetail = ({ user }: RecipeDetailProps) => {
                         </span>
                       </div>
 
-                      {user && !isOwner && (
+                      {user && (
                         <div className="mt-4">
                           <p className="text-sm font-medium text-neutral-700 mb-2">Rate this recipe:</p>
                           <div className="flex items-center space-x-1">
